@@ -130,7 +130,7 @@ def plot_2d_input_weights():
     name = 'XeAe'
     weights = get_2d_input_weights()
     fig = b2.figure(fig_num, figsize = (18, 18))
-    im2 = b2.imshow(weights, interpolation = "nearest", vmin = 0, vmax = wmax_ee, cmap = cmap.get_cmap('hot_r'))
+    im2 = b2.imshow(weights, interpolation = "nearest", vmin = 0, vmax = wmax_ee, cmap = matplotlib.colormaps['hot_r'])
     b2.colorbar(im2)
     b2.title('weights of connection' + name)
     fig.canvas.draw()
@@ -211,7 +211,7 @@ print('time needed to load test set:', end - start)
 #------------------------------------------------------------------------------
 # set parameters and equations
 #------------------------------------------------------------------------------
-test_mode = True
+test_mode = False
 
 np.random.seed(0)
 data_path = './'
