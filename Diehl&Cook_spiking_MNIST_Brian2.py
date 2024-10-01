@@ -81,12 +81,18 @@ def get_matrix_from_file(fileName):
     return value_arr
 
 
-def save_connections(ending = ''):
+def save_connections(ending=''):
     print('save connections')
     for connName in save_conns:
         conn = connections[connName]
-        connListSparse = zip(conn.i, conn.j, conn.w)
+        # Convert the zipped object into a list
+        connListSparse = list(zip(conn.i, conn.j, conn.w))  # Convert to a list
+        # Convert to a numpy array if necessary
+        connListSparse = np.array(connListSparse)  # Optional, only if you want it as a numpy array
+
+        # Now save it
         np.save(data_path + 'weights/' + connName + ending, connListSparse)
+
 
 def save_theta(ending = ''):
     print('save theta')
@@ -254,14 +260,16 @@ else:
     save_connections_interval = 10000
     update_interval = 10000
 
-v_rest_e = -65. * b2.mV
-v_rest_i = -60. * b2.mV
-v_reset_e = -65. * b2.mV
-v_reset_i = -45. * b2.mV
-v_thresh_e = -52. * b2.mV
-v_thresh_i = -40. * b2.mV
-refrac_e = 5. * b2.ms
-refrac_i = 2. * b2.ms
+# excitatory 兴奋性
+# inhibitory 抑制性
+v_rest_e = -65. * b2.mV  # 兴奋性神经元的静息电位，单位是毫伏（mV）， 神经元未激活时的膜电位，通常是一个负值
+v_rest_i = -60. * b2.mV  # 抑制性神经元的静息电位
+v_reset_e = -65. * b2.mV  # 兴奋性神经元的重置电位
+v_reset_i = -45. * b2.mV  # 抑制性神经元的重置电位
+v_thresh_e = -52. * b2.mV  # 兴奋性神经元的阈值电位
+v_thresh_i = -40. * b2.mV  # 抑制性神经元的阈值电位
+refrac_e = 5. * b2.ms  # 兴奋性神经元的不应期
+refrac_i = 2. * b2.ms  # 抑制性神经元的不应期
 
 weight = {}
 delay = {}
